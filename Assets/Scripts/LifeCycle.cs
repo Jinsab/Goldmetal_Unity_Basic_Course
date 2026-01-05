@@ -27,6 +27,7 @@ using UnityEngine;
  *         - OnEnable : Awake 이후에 호출
  *    6-1. 비활성화
  *         - OnDisable : OnDestory 직전에 호출
+ *         
  *  2. 가비지 컬렉터 (GC)
  *    1-1. 가비지 컬렉터의 기능
  *         - 애플리케이션과 Unity에서 더 이상 사용하지 않는 오브젝트로부터 메모리를 회수하는 기능

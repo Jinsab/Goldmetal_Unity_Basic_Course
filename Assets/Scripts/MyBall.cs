@@ -27,11 +27,17 @@ using UnityEditor.ShaderGraph.Internal;
  *    1-4. AddTorque : 회전력
  *         - AddTorque(Vector3)
  *         - 물체가 축(Vector3)을 중심으로 회전하게 만드는 것
+ *         
+ *  3. Trigger
+ *    1-1. OnTriggerEnter : 콜라이더가 충돌할 때 호출되는 함수
+ *    1-2. OnTriggerStay : 콜라이더가 계속 충돌하고 있을 때 호출되는 함수
+ *    1-3. OnTriggerExit : 콜라이더가 충돌이 끝났을 때 호출되는 함수
  *  
  *  [학습 출처]
  *  1. https://youtu.be/h_MA36TGFsc?si=GN5ivJHgcjQJxGtN
- *  2. https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Rigidbody.AddForce.html
- *  3. https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Rigidbody-linearVelocity.html
+ *  2. https://youtu.be/salZ7t98xi8?si=C_gniMNEDnxlyPYi
+ *  3. https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Rigidbody.AddForce.html
+ *  4. https://docs.unity3d.com/6000.3/Documentation/ScriptReference/Rigidbody-linearVelocity.html
  */
 
 public class MyBall : MonoBehaviour
@@ -53,18 +59,20 @@ public class MyBall : MonoBehaviour
         //rigid.linearVelocity = Vector3.left;
         
     }
-
-    void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         moveValue = moveAction.ReadValue<Vector2>();
         rigid.AddForce(new Vector3(moveValue.x * speed, 0, moveValue.y * speed), ForceMode.Impulse);
 
         if (jumpAction.IsPressed())
+        {
+            rigid.AddForce(Vector3.up * 30, ForceMode.Impulse);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.name == "Cube")
         {
             rigid.AddForce(Vector3.up * 30, ForceMode.Impulse);
         }

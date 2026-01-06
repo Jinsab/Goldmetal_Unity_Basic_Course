@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 /*  
  *  [학습 제목]
@@ -32,15 +33,16 @@ using UnityEngine.InputSystem;
 
 public class PlayerBall : MonoBehaviour
 {
+    public GameManager gameManager;
     private Rigidbody rb;
     private InputAction moveAction;
     private InputAction jumpAction;
+    private new AudioSource audio;
     private Vector2 moveValue;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float jumpPower = 10f;
     private bool isJump;
     public int itemCount;
-    AudioSource audio;
 
     private void Awake()
     {
@@ -81,6 +83,25 @@ public class PlayerBall : MonoBehaviour
             itemCount++;
             audio.Play();
             other.gameObject.SetActive(false);
+            gameManager.GetItem(itemCount);
+        }
+        else if (other.CompareTag("Finish"))
+        {
+            if (itemCount == gameManager.totalItemCount)
+            {
+                // Game Clear
+                gameManager.stage++;
+
+                SceneManager.LoadScene($"03_DoroBall_{gameManager.stage}");
+                Debug.Log(gameManager.stage);
+            }
+            else
+            {
+                // Game Restart
+
+                SceneManager.LoadScene($"03_DoroBall_{gameManager.stage}");
+                Debug.Log(gameManager.stage);
+            }
         }
     }
 }

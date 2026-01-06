@@ -9,7 +9,7 @@ using UnityEditor.ShaderGraph.Internal;
  *  
  *  [학습 일자]
  *  파일 생성 일자 : 26.01.05 오후 17:34
- *  마지막 수정 일자 : 26.01.05 오후 18:14
+ *  마지막 수정 일자 : 26.01.06 오후 12:07
  *  
  *  [학습 내용]
  *  1. GetComponent<T> : 자신의 T타입 컴포넌트를 가져옴.
@@ -57,7 +57,6 @@ public class MyBall : MonoBehaviour
         jumpAction = InputSystem.actions.FindAction("Jump");
 
         //rigid.linearVelocity = Vector3.left;
-        
     }
     private void FixedUpdate()
     {
